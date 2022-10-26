@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 05:09:25 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/26 06:27:37 by fbriglia         ###   ########.fr       */
+/*   Created: 2022/10/26 05:26:20 by fbriglia          #+#    #+#             */
+/*   Updated: 2022/10/26 05:51:52 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+int	ft_atoi(char *str)
 {
-	unsigned int	i;
-	unsigned int	j;
+	int	i;
+	int	result;
+	int	sign;
 
 	i = 0;
-	j = 0;
-	while (dest[i])
+	result = 0;
+	sign = 1;
+	while (str[i] >= 9 && str[i] <= 13 || str[i] == 32 || str[i] == '+')
 		i++;
-	while (j < size)
+	while (str[i] == '-')
 	{
-		dest[i] = src[i];
-		i++;
-		j++;
+		if (str[i++] == '-')
+			sign = sign * (-1);
 	}
-	i = 0;
-	while (dest[i])
-		i++;
-	return (i);
+	while (str[i] >= '0' && str[i] <= '9')
+		result = result * 10 + str[i++] - '0';
+	return (result * sign);
 }
