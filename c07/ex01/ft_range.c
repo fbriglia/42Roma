@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_program_name.c                            :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 18:49:37 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/31 18:49:45 by fbriglia         ###   ########.fr       */
+/*   Created: 2022/10/31 22:42:29 by fbriglia          #+#    #+#             */
+/*   Updated: 2022/10/31 23:53:44 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+#include<stdlib.h>
 
-int	main(int argc, char **argv)
+int	*ft_range(int min, int max)
 {
+	int	*x;
+	int	y;
 	int	i;
 
-	(void)argc;
-	i = 0;
-	while (argv[0][i])
+	if (min >= max)
 	{
-		write(1, &argv[0][i], 1);
+		x = NULL;
+		return (x);
+	}
+	i = 0;
+	y = max - min;
+	x = (int *)malloc(sizeof (int) * y + 1);
+	while (min < max)
+	{
+		x[i] = min;
+		min++;
 		i++;
 	}
-	write(1, "\n", 1);
+	return (x);
 }
+/*
+int main ()
+{
+	ft_range(2,33);
+}
+*/

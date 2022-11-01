@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_program_name.c                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 18:49:37 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/31 18:49:45 by fbriglia         ###   ########.fr       */
+/*   Created: 2022/10/31 22:35:26 by fbriglia          #+#    #+#             */
+/*   Updated: 2022/10/31 22:36:06 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
 
-int	main(int argc, char **argv)
+#include<stdlib.h>
+
+char	*ft_strdup(char *src)
 {
-	int	i;
+	char	*dest;
+	int		i;
 
-	(void)argc;
 	i = 0;
-	while (argv[0][i])
+	while (src[i])
+		i++;
+	dest = (char *)malloc(sizeof (int) * i + 1);
+	i = 0;
+	while (src[i])
 	{
-		write(1, &argv[0][i], 1);
+		dest[i] = src[i];
 		i++;
 	}
-	write(1, "\n", 1);
+	dest[i] = 0;
+	return (dest);
 }
+/*
+int main()
+{
+	char	a[]="hello";
+	ft_strdup(a);
+}
+*/
