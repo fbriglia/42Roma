@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (++i < argc)
 	{
-		j = i ;
+		j = i;
 		while (++j < argc)
 		{
 			if (ft_strcmp(argv[i], argv[j]) > 0)

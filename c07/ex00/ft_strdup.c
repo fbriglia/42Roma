@@ -6,7 +6,7 @@
 /*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:35:26 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/31 22:36:06 by fbriglia         ###   ########.fr       */
+/*   Updated: 2022/11/01 02:17:49 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@ char	*ft_strdup(char *src)
 {
 	char	*dest;
 	int		i;
+	int		j;
 
 	i = 0;
 	while (src[i])
 		i++;
-	dest = (char *)malloc(sizeof (int) * i + 1);
-	i = 0;
-	while (src[i])
+	dest = (char *)malloc(sizeof (char) * i + 1);
+	j = 0;
+	while (j < i)
 	{
-		dest[i] = src[i];
-		i++;
+		dest[j] = src[j];
+		j++;
 	}
-	dest[i] = 0;
+	dest[j] = 0;
 	return (dest);
 }
 /*
