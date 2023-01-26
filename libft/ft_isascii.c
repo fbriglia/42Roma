@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 12:00:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/24 21:10:35 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/26 14:31:13 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:31:13 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isascii(char *str)
-{
-    int i;
+#include "libft.h"
 
-    i = 0;
-    if (str[i] == '\0')
-        return (1);
-    while (str[i])
-    {
-        if(str[i] >= 0 && <= 127)
-            i++;
-        else
-         return(0);
-    }
-    return (1);
+int ft_isascii(int c)
+{
+    if (c >= 0 &&c <= 127)
+        return(1);
+    else
+        return(0);
 }

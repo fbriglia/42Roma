@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 12:00:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/24 21:10:35 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/26 14:32:42 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:32:42 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 void    *ft_memcpy(void *dest, void *src, size_t len)
 {
-    int i;
-
-    i = 0;
-    if(src[i] == '\0')
+    size_t i;
+    char    *d;
+    char    *s;
+    
+    if(!(src))
         return (0);
-    while(src[i])
-        i++;
-    if(i < len)
-    {
-        i = 0;
-        while(src[i])
-        {
-            dest[i] = src[i];
-            i++;
-        }
-        return(dest);
-    }
+
+    d = (char *)dest;
+    s = (char *)src;
+    i = 0;    
     while(i < len)
     {
-        dest[i] = src[i];
+        d[i] = s[i];
         i++;
     }
-    return(dest);
+    return((void *)d);
 }

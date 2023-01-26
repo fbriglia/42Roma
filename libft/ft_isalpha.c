@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_alpha.c                                  :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 11:59:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/24 21:09:59 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/26 14:31:00 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:31:00 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(char *str)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	if (str[i] == '\0')
-		return (1);
-	while (str[i])
-	{
-		if ((str[i] > 64 && str[i] < 91) || (str[i] > 96 && str[i] < 123))
-			i++;
-		else
-			return (0);
-	}
-	return (1);
+int	ft_isalpha(int c)
+{
+	
+	if ((c > 64 && c < 91) || (c > 96 && c < 123))
+		return(1);
+	else
+		return (0);
 }

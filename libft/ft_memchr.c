@@ -1,17 +1,31 @@
-void *memchr(const void *s, int c, size_t n)
-{
-    size_t i;
-    char    *str2;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/26 14:32:31 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:32:31 by fbriglia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "libft.h"
+
+void    *ft_memchr(const void *s, int c, size_t n)
+{
+    size_t  i;
+    char    *s2;
+
+    s2 = (char  *)s;
     i = 0;
-    while(str[i] && i <= n)
+    while(s2[i] && i <= n)
     {
-        if(str[i] == c)
+        if(s2[i] == c)
         {
-            str2 = &str[i];
-            return(str2);
+            return (&s2[i]);
         }
         i++;
     }
-    return((void *)str2);
+    return (s2);
 }

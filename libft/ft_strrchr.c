@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 14:34:07 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/01/26 14:34:07 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/25 12:38:01 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/25 12:38:01 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_tolower(int c)
+#include "libft.h"
+
+char    *ft_strrchr(const char *str, int c)
 {
-   if(c >= 65 && c <= 90)
-        c += 32; 
-    return(c);
+    int     i;
+
+    i = 0;
+    while(str[i])
+        i++;
+    while(str[i])
+    {
+        if(str[i] == c)
+        {
+            return((char *)&str[i]);
+        }
+        i--;
+    }
+    return((char *)&str[i]);
 }

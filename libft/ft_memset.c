@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 12:00:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/24 21:10:35 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/26 14:33:03 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:33:03 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 void    *ft_memset(void *str, int c, size_t n)
 {
-    int i;
+	size_t	i;
 
-    i = 0;
-    if (str[i] == '\0')
-        return (0);
-    while(str[i] <= n)
-    {
-        str[i] = c;
+	i = 0;
+	if (!(str))
+		return ((void *)0);
+	while (i < n)
+	{
+        ((unsigned char *)str)[i] = c;
         i++;
-    }
-    return ((void *)str);
+	}
+	return (str);
 }

@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_is_numeric.c                                :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 12:00:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2022/10/24 21:10:35 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/26 14:31:59 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/26 14:31:59 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 void    ft_bzero(void *str, size_t n)
 {
-    int i;
-
-    i = 0;
-    if (str[i] == '\0')
-        return (0);
-    while(str[i] <= n)
-    {
-        str[i] = 0;
-        i++;
-    }
+    if (!(str))
+        return((void)0);
+    ft_memset(str, 0, n);
 }
