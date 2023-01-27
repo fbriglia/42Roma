@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void    ft_bzero(void *str, size_t n)
+void	ft_bzero(void *str, size_t n)
 {
-    if (!(str))
-        return((void)0);
-    ft_memset(str, 0, n);
+	if (!(str))
+		return ((void)0);
+	ft_memset(str, 0, n);
 }

@@ -23,7 +23,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	i = 0;
 	ptr = NULL;
 	if (nmemb * size < 4294967295)
+	{
 		ptr = (void *)malloc(nmemb * size);
 		ft_bzero(ptr, nmemb * size);
-	return(ptr);
+	}
+	return (ptr);
 }
