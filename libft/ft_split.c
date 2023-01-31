@@ -22,8 +22,6 @@ int	num_word(char const *s, char c)
 
 	i = 0;
 	p = 0;
-	// if (s[i] != c)
-	// 	p = 1;
 	while (s[i])
 	{
 		while (s[i] == c)
@@ -72,6 +70,8 @@ char	**ft_writing(char **matrix, const char *s, char c)
 		}
 		i++;
 	}
+	i = 0;
+	matrix[k][i] = '\0';
 	return (matrix);
 }
 
@@ -82,23 +82,11 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	if (!s)
-		return(0);
+		return (0);
 	matrix = malloc((num_word(s, c) + 1) * sizeof(char *));
 	if (!matrix)
 		return (0);
 	matrix[num_word(s, c)] = NULL;
 	return (matrix = ft_writing(matrix, s, c));
-	// while (s[i])
-	// {
-	//     if (s[i] != c)
-	//     {
-	//         start = i;
-	//         p = len_word(s, c, start);
-	//         matrix[k] = ft_substr(s, start, p);
-	//         k++;
-	//         i += p;
-	//     }
-	//     i++;
-	// }
 	return (matrix);
 }

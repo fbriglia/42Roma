@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 11:36:07 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/01/31 15:22:57 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/01/31 16:10:18 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/01/31 16:26:39 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t	c;
-	size_t	d;
+	int	i;
 
-	if ((!dst || !src) && dstsize == 0)
-		return (0);
-	if (dstsize <= ft_strlen(dst))
-		return (dstsize + ft_strlen((char *)src));
-	c = ft_strlen(dst);
-	d = 0;
-	while (src[d] != '\0' && c + 1 < dstsize)
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
 	{
-		dst[c] = src[d];
-		c++;
-		d++;
+		f(i, &s[i]);
+		i++;
 	}
-	dst[c] = '\0';
-	return (ft_strlen(dst) + ft_strlen((char *)&src[d]));
 }

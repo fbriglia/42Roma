@@ -6,7 +6,7 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:18:07 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/01/27 11:45:17 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/01/31 13:54:12 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	unsigned char	*str2;
 
 	i = 0;
-	if (!(s1) || !(s2))
-		return (0);
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
 	while (i < n)
