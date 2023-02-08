@@ -2,14 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
-	+:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+      
-	+#+        */
-/*                                                +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2023/01/26 14:33:10 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/01/26 14:33:10 by fbriglia         ###   ########.fr       */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/01 13:05:07 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/02/01 13:05:07 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +22,18 @@ int	num_word(char const *s, char c)
 	while (s[i])
 	{
 		while (s[i] == c)
+		{
+			if (s[i] == 0)
+				return (p);
 			i++;
-		if (s[i] != c && s[i] != '\0')
+			if (s[i] == 0)
+				return (p);
+		}
+		if (s[i] && s[i] != c)
 		{
 			p += 1;
 		}
-		while (s[i] != c && s[i] != '\0')
+		while (s[i] && s[i] != c)
 			i++;
 	}
 	return (p);
@@ -40,10 +43,10 @@ int	len_word(char const *s, char c, int i)
 {
 	int	j;
 
-	j = 1;
+	j = 0;
 	while (s[i] == c)
 		i++;
-	while (s[i + j] != c && s[i] != '\0')
+	while (s[i + j] != '\0' && s[i + j] != c)
 		j++;
 	return (j);
 }
@@ -70,8 +73,6 @@ char	**ft_writing(char **matrix, const char *s, char c)
 		}
 		i++;
 	}
-	i = 0;
-	matrix[k][i] = '\0';
 	return (matrix);
 }
 

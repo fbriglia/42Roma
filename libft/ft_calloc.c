@@ -15,19 +15,17 @@
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nitems, size_t size)
 {
-	void	*ptr;
+	char	*ptr;
 	size_t	i;
 
 	i = 0;
-	ptr = NULL;
-	if (nmemb * size < 4294967295)
-	{
-		ptr = (void *)malloc(nmemb * size);
-		if (!ptr)
-			return (NULL);
-		ft_bzero(ptr, nmemb * size);
-	}
-	return (ptr);
+	if (nitems == SIZE_MAX && size == SIZE_MAX)
+		return (NULL);
+	ptr = (char *) malloc(nitems * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, nitems * size);
+	return ((void *) ptr);
 }

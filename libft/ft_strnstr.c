@@ -6,7 +6,7 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:27:59 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/01/31 16:32:51 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:57:35 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	j;
 
 	i = 0;
-	if ((!haystack || !needle) && len == 0)
+	if (!haystack && len == 0)
 		return (0);
+	if (!needle[0] || !needle)
+		return ((char *) haystack);
 	while (haystack[i] != '\0')
 	{
 		j = 0;
