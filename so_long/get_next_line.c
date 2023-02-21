@@ -6,11 +6,11 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:14:46 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/02/08 16:15:33 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:27:07 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "so_long.h"
 
 char	*clean_end(char *line_sporca)
 {
