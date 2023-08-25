@@ -5,12 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 14:14:46 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/07/06 14:57:27 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/07/05 19:31:42 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/08/24 18:20:05 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_free(char *str, char *buff)
+{
+	char	*temp;
+
+	temp = ft_join(str, buff);
+	free(str);
+	return (temp);
+}
 
 char	*clean_end(char *line_sporca)
 {
@@ -49,16 +58,11 @@ char	*clean_start(char *line_sporca)
 		return (NULL);
 	while (line_sporca[j] != '\n' && line_sporca[j])
 		j++;
-	line_pulita = (char *)malloc((j + 2));
+	line_pulita = (char *)malloc((j + 1));
 	if (!line_pulita)
 		return (NULL);
 	j = 0;
 	while (line_sporca[j] != '\n' && line_sporca[j])
-	{
-		line_pulita[j] = line_sporca[j];
-		j++;
-	}
-	if (line_sporca[j] == '\n')
 	{
 		line_pulita[j] = line_sporca[j];
 		j++;
@@ -72,6 +76,11 @@ char	*create_line(int fd, char *statica)
 	char	*buff;
 	int		k;
 
+	if (!statica)
+	{
+		statica = (char *)malloc((1) * sizeof(char));
+		statica[0] = '\0';
+	}
 	buff = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
@@ -85,7 +94,7 @@ char	*create_line(int fd, char *statica)
 			return (NULL);
 		}
 		buff[k] = '\0';
-		statica = ft_join(statica, buff);
+		statica = ft_free(statica, buff);
 	}
 	free(buff);
 	return (statica);

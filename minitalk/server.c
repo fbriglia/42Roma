@@ -5,30 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 17:15:30 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/04/26 17:53:04 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/07/06 13:22:44 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/08/25 17:05:04 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minitalk.h"
-void sigaction()
+#include "./print_f/ft_printf.h"
+#include <signal.h>
+#include <unistd.h>
+
+void	signal_handler(int sign, siginfo_t *info, void *context)
 {
-	
+	static int	bit_counter;
+	static int	value;
+
+	(void)context;
+	if (sign == SIGUSR1)
+		value += 1 << bit_counter;
+	bit_counter++;
+	if (bit_counter == 8)
+	{
+		write(1, &value, 1);
+		if (value =='\n')
+			kill(info->si_pid, SIGUSR1);
+		bit_counter = 0;
+		value = 0;
+	}
 }
 
-int	main()
+int	main(void)
 {
-	struct	sigation	sigs;
-	pid_t				pid;
+	struct sigaction	act;
 
+	act.sa_flags = SA_SIGINFO;
+	act.sa_sigaction = &signal_handler;
+	sigaction(SIGUSR1, &act, (void *)0);
+	sigaction(SIGUSR2, &act, (void *)0);
+	sigemptyset(&act.sa_mask);
 	ft_printf("Starting server...\n");
-	pid = getpid();
-	ft_printf("PID: %d\n", pid);
-	sigs.sa_sigaction = &answer;
-	sigs.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &sigs, NULL);
-	sigaction(SIGUSR2, &sigs, NULL);
-	sigemptyset(&sigs.sa_mask);
+	ft_printf("PID: %d\n", getpid());
 	while (1)
 		pause();
+	return (0);
 }

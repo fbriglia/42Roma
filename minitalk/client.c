@@ -5,56 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 17:15:33 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/04/26 17:53:00 by fbriglia         ###   ########.fr       */
+/*   Created: 2023/07/06 13:22:32 by fbriglia          #+#    #+#             */
+/*   Updated: 2023/08/25 17:03:35 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
-int	ft_atoi(char *str)
-{
-	// transform PID in int
-}
-void	ft_message(int bit_c, int pid, char c)
-{
-	while(bit_c < 8)
-	{
-		if (c & (1 << bit_c) != 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		bit_c ++;
-	}
-}
+#include "./print_f/ft_printf.h"
+#include <signal.h>
+#include <unistd.h>
 
-void	ft_check_char(int PID, char *message)
+int	ft_atoi(const char *str)
 {
-	int i;
-	int bit_c;
-	
-	i = 0
-	while(message[i])
+	int	neg;
+	int	i;
+	int	num;
+
+	i = 0;
+	neg = 1;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i]
+		== '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		bit_c = 0;
-		ft_message(bit_c, PID, message[i]);
+		if (str[i] == '-')
+			neg *= -1;
 		i++;
 	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		num = num * 10 + (str[i] - 48);
+		i++;
+	}
+	return (num * neg);
 }
 
-int	main()
+void	send_string(pid_t pid, const char *string)
 {
-	pid_t	c;
-	
-	c = 0;
-	if (argc != 3)
+	int	bit;
+	int	v;
+
+	while (*string)
 	{
-		ft_printf("Too many or few arguments\n");
-		ft_printf("\tcorrect format [%s SERVER_PID MESSAGE]\n", argv[0])
-		exit(0);
+		v = *string;
+		bit = 0;
+		while (bit < 8)
+		{
+			if ((v & (1 << bit)) != 0)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			bit++;
+			usleep(1000);
+		}
+		string++;
 	}
-	c = ft_atoi(argv[1]);
-	signal(SIGUSR1, &message_check);
-	ft_check_char(c, argv[2]);
-	ft_message('\n', 0, c);
-	ft_message('\0', 0, c);
+}
+
+void	recv(int sign)
+{
+	(void)sign;
+	ft_printf("The message had been sent.\n");
+}
+
+int	main(int argc, char const *argv[])
+{
+	pid_t	server_pid;
+
+	if (argc != 3)
+		return (ft_printf("Wrong input data"));
+	server_pid = ft_atoi(argv[1]);
+	signal(SIGUSR1, &recv);
+	send_string(server_pid, argv[2]);
+	send_string(server_pid, "\n");
+	return (0);
 }

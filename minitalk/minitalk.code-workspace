@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "minitalk",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ft_printf.h": "c"
+		}
+	}
+}
