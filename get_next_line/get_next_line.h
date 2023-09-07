@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+#  define BUFFER_SIZE 1
+
 char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(char *str);
 char	*get_next_line(int fd);

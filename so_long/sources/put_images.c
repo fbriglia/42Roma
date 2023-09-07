@@ -20,8 +20,9 @@ void	destroy_image(t_game *game)
 	mlx_destroy_image(game->mlx, game->map.enemy);
 	mlx_destroy_image(game->mlx, game->map.coin);
 	mlx_destroy_image(game->mlx, game->map.exit);
+	mlx_destroy_image(game->mlx, game->map.ascia);
+	mlx_destroy_image(game->mlx, game->map.arbusto);
 	mlx_destroy_window(game->mlx, game->window);
-	free(game->mlx);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -45,7 +46,7 @@ void	put_images(t_game *game)
 	len = 32;
 	game->map.wall = mlx_xpm_file_to_image(game->mlx, "./img/wall.xpm", &len,
 			&len);
-	game->map.player = mlx_xpm_file_to_image(game->mlx, "./img/player_dx.xpm",
+	game->map.player = mlx_xpm_file_to_image(game->mlx, "./img/player.xpm",
 			&len, &len);
 	game->p_pov = 0;
 	game->map.floor = mlx_xpm_file_to_image(game->mlx, "./img/floor.xpm", &len,
@@ -54,30 +55,40 @@ void	put_images(t_game *game)
 			&len);
 	game->map.coin = mlx_xpm_file_to_image(game->mlx, "./img/coin.xpm", &len,
 			&len);
-	game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy_dx.xpm",
+	game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy.xpm",
+			&len, &len);
+	game->map.arbusto = mlx_xpm_file_to_image(game->mlx, "./img/wall.xpm",
+			&len, &len);
+	game->map.ascia = mlx_xpm_file_to_image(game->mlx, "./img/ascia.xpm",
 			&len, &len);
 }
 
 void	mlx_put_image(int x, int y, t_game *game)
 {
 	if (game->map.map[y][x] == '1')
-		mlx_put_image_to_window(game->mlx, game->window, game->map.wall, x * 32,
-			y * 32);
+		mlx_put_image_to_window(game->mlx, game->window, game->map.wall, x * 64,
+			y * 64);
 	if (game->map.map[y][x] == '0')
 		mlx_put_image_to_window(game->mlx, game->window, game->map.floor, x
-			* 32, y * 32);
+			* 64, y * 64);
 	if (game->map.map[y][x] == 'P')
 		mlx_put_image_to_window(game->mlx, game->window, game->map.player, x
-			* 32, y * 32);
+			* 64, y * 64);
 	if (game->map.map[y][x] == 'E')
-		mlx_put_image_to_window(game->mlx, game->window, game->map.exit, x * 32,
-			y * 32);
+		mlx_put_image_to_window(game->mlx, game->window, game->map.exit, x * 64,
+			y * 64);
 	if (game->map.map[y][x] == 'C')
-		mlx_put_image_to_window(game->mlx, game->window, game->map.coin, x * 32,
-			y * 32);
+		mlx_put_image_to_window(game->mlx, game->window, game->map.coin, x * 64,
+			y * 64);
 	if (game->map.map[y][x] == 'X')
 		mlx_put_image_to_window(game->mlx, game->window, game->map.enemy, x
-			* 32, y * 32);
+			* 64, y * 64);
+	if (game->map.map[y][x] == 'A')
+		mlx_put_image_to_window(game->mlx, game->window, game->map.arbusto, x
+			* 64, y * 64);
+	if (game->map.map[y][x] == 'U')
+		mlx_put_image_to_window(game->mlx, game->window, game->map.ascia, x
+			* 64, y * 64);
 }
 
 void	put_map(t_game *game)
@@ -88,7 +99,7 @@ void	put_map(t_game *game)
 	y = 0;
 	if (game->counter_calls % 30 == 0)
 		move_enemy(game);
-	while (game->map.map[y])
+	while (y < game->map.rows)
 	{
 		x = 0;
 		while (game->map.map[y][x] != '\0')

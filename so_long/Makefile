@@ -14,7 +14,7 @@ HIGH_RED		= \033[91m
 
 #####   INFO   #####
 
-NAME			= main
+NAME			= so_long
 
 #####   COMMANDS   #####
 
@@ -22,10 +22,9 @@ CC				= gcc
 EXTENSION		= c
 CFLAGS			= -Wall -Wextra -Werror -g
 MINILIBX	=	make -C mlx
-LINKER		=	-framework OpenGL -framework AppKit
-MLX			=	mlx/libmlx.a
+MLX			=	mlx/Makefile.gen
 
-EXECUTION		= ./$(NAME)
+EXECUTION		= ./$(NAME) map/classic.ber
 MD				= mkdir -p
 RM				= rm -rf
 TAR_EXCLUSIONS	= --exclude=".git" \
@@ -56,14 +55,21 @@ OBJS			= ./sources/ft_itoa.o ./printf/ft_putnbr.o ./printf/ft_printfutils.o ./pr
 
 all: $(NAME) 
 
+
+$(NAME): $(OBJ)
+
 $(NAME): $(OBJS)
-	@ $(MINILIBX)
-	@ $(CC) $(MLX) $(LINKER) $(CFLAGS) $(OBJS) -o $@
+# @ $(MINILIBX)
+	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+#  @ $(CC) $(MLX) $(LINKER) $(CFLAGS) $(OBJS) -o $@
 	@ echo "$(GREEN)[+] $(NAME) compiled$(END)"
 
 %.o: %.c
-	@ $(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
-	@ echo "$(BLUE)[+] $@ compiled$(END)"
+	# $(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INCLUDE) -Imlx_linux -O3 -c $< -o $@
+
+# %.o: %.c
+# 	@ echo "$(BLUE)[+] $@ compiled$(END)"
 
 $(OBJ_SUB_DIRS):
 	@ $(MD) $(OBJ_SUB_DIRS)
@@ -105,7 +111,7 @@ git:
 	@ $(eval MESSAGE := $(or $(m), $(error Usage: make commit m="<commit message>")))
 	@ $(ADD)
 	@ $(COMMIT) $(MESSAGE)
-	@ $(PUSH)
+	@ $(PUSH)clear
 
 setup:
 	@ echo "# dirs\n.vscode\n$(OBJ_DIR)\n\n# files\n$(NAME)\n._*\n.DS_Store" > .gitignore

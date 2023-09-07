@@ -22,7 +22,7 @@ int	ft_check_map_pop(t_game *game)
 	i = 0;
 	e = 0;
 	p = 0;
-	while (game->map.map[i])
+	while (i < game->map.rows)
 	{
 		x = 0;
 		while (game->map.map[i][x++])
@@ -85,4 +85,25 @@ char	*ft_itoa(int n)
 		nb /= 10;
 	}
 	return (res);
+}
+
+char	*ft_strdup(char *src)
+{
+	char	*new;
+	int		i;
+	int		size;
+
+	size = 0;
+	while (src[size])
+		++size;
+	if (!(new = malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		new[i] = src[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }

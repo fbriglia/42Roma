@@ -34,7 +34,7 @@ void	check_top_border(t_game *game)
 	int	y;
 
 	y = 0;
-	while (game->map.map[y++])
+	while (y++ <= game->map.rows)
 	{
 		x = 0;
 		if (y == 0)
@@ -91,7 +91,7 @@ void	count_collectibles(t_game *game)
 
 	i = 0;
 	c = 0;
-	while (game->map.map[i])
+	while (i < game->map.rows)
 	{
 		x = 0;
 		while (game->map.map[i][x++])
@@ -120,6 +120,7 @@ void	ft_check(t_game *game)
 	if (i == 1)
 	{
 		ft_printf("\n **INVALID MAP POPULATION** \n\n");
+		// free_mtx
 		exit (0);
 	}
 	count_collectibles(game);

@@ -23,7 +23,7 @@ void	switch_position(t_game *game, int col, int line)
 	game->y_enemy = line;
 	if (game->map.map[col][line] == 'P')
 	{
-		ft_printf("\n\nYOU lose DUMMY👻\n\n");
+		ft_printf("\n\nYOU LOSE👻\n\n");
 		ft_exit(game);
 		exit(0);
 	}

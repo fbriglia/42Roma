@@ -44,21 +44,21 @@ int	ft_putnbr_u(unsigned int nb)
 	static int	count;
 
 	count = 0;
-	if (nb < 0)
+	// if (nb < 0)
+	// {
+	// 	count += write(1, "-", 1);
+	// 	nb = nb * -1;
+	// }
+	// if (nb >= 0)
+	// {
+	if (nb > 9)
 	{
-		count += write(1, "-", 1);
-		nb = nb * -1;
+		ft_putnbr_u(nb / 10);
+		count += ft_putchar((nb % 10) + '0');
 	}
-	if (nb >= 0)
-	{
-		if (nb > 9)
-		{
-			ft_putnbr_u(nb / 10);
-			count += ft_putchar((nb % 10) + '0');
-		}
-		if (nb <= 9)
-			count += ft_putchar(nb + '0');
-	}
+	if (nb <= 9)
+		count += ft_putchar(nb + '0');
+	// }
 	return (count);
 }
 

@@ -24,14 +24,15 @@
 
 # define SPRITE_SIZE 16
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_UP 126
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_DOWN 125
+# define KEY_W 119
+# define KEY_A 97  /* U+0061 LATIN SMALL LETTER A */
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_UP 65362
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
+# define KEY_ESC 65307
 
 typedef struct s_map
 {
@@ -44,11 +45,14 @@ typedef struct s_map
 	void	*player;
 	void	*exit;
 	void	*enemy;
+	void	*arbusto;
+	void	*ascia;
 }			t_map;
 
 typedef struct s_game
 {
 	t_map	map;
+	int		ascia_collected;
 	int		collectibles;
 	int		x_player;
 	int		y_player;
@@ -58,11 +62,13 @@ typedef struct s_game
 	char	turn;
 	int		x_enemy;
 	int		y_enemy;
-	int		move_counter;
+	int		move_num;
 	void	*mlx;
 	void	*window;
 	int		was_collectible;
 	int		p_pov;
+	char	*move_counter;
+	char	*to_collect;
 }			t_game;
 
 int			key_handler(int keycode, t_game *game);
@@ -86,5 +92,7 @@ void		update_image_enemy(t_game *game, char direction);
 void		ft_check(t_game *game);
 void		destroy_image(t_game *game);
 int			ft_check_map_pop(t_game *game);
+int			close_game(t_game *game);
+char		*ft_strdup(char *src);
 
 #endif

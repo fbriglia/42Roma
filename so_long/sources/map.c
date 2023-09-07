@@ -43,7 +43,7 @@ void	check_map_pop(t_game *game, int x, int y)
 	if ((game->map.map[y][x] != 'P') && (game->map.map[y][x] != 'E')
 		&& (game->map.map[y][x] != 'C') &&
 		(game->map.map[y][x] != '0') && (game->map.map[y][x] != '1')
-			&& (game->map.map[y][x] != 'X'))
+			&& (game->map.map[y][x] != 'X') && (game->map.map[y][x] != 'A') && (game->map.map[y][x] != 'U'))
 	{
 		ft_printf(" %s", "\n **INVALID MAP POPULATION** \n\n");
 		ft_exit(game);
@@ -57,7 +57,7 @@ void	find_player_exit(t_game *game)
 	int	y;
 
 	y = 0;
-	while (game->map.map[y])
+	while (y < game->map.rows)
 	{
 		x = 0;
 		while (game->map.map[y][x])
@@ -88,7 +88,9 @@ void	ft_parse_map(t_game *game, char *file)
 {
 	int	i;
 	int	fd;
+	char	*line;
 
+	line = NULL;
 	fd = open(file, O_RDONLY, 0);
 	if (!fd)
 	{
@@ -107,9 +109,12 @@ void	ft_parse_map(t_game *game, char *file)
 	if (!game->map.map)
 		exit(0);
 	i = 0;
-	while (i <= game->map.rows)
+	line = get_next_line(fd);
+	while (i <= game->map.rows && line)
 	{
-		game->map.map[i] = get_next_line(fd);
+		game->map.map[i] = ft_strdup(line);
+		free(line);
+		line = get_next_line(fd);
 		i++;
 	}
 	game->map.cols = ft_strlen(game->map.map[0]);

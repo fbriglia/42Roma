@@ -28,20 +28,23 @@ char	*clean_end(char *line_sporca)
 	char	*statica_pulita;
 
 	i = 0;
-	while (line_sporca[i] != '\n' && line_sporca[i])
-		i++;
-	if (!line_sporca[i])
+	if (!line_sporca)
 	{
 		free(line_sporca);
 		return (NULL);
 	}
+	while (line_sporca[i] != '\n' && line_sporca[i])
+		i++;
 	statica_pulita = (char *)malloc((ft_strlen(line_sporca) - i + 1)
 			* sizeof(char));
 	if (!statica_pulita)
 		return (0);
-	i++;
+	if (!line_sporca[0])
+		i = 0;
+	else
+		i++;
 	j = 0;
-	while (line_sporca[i])
+	while (ft_strlen(line_sporca) > i)
 		statica_pulita[j++] = line_sporca[i++];
 	statica_pulita[j] = '\0';
 	free(line_sporca);
@@ -114,3 +117,5 @@ char	*get_next_line(int fd)
 	statica = clean_end(statica);
 	return (next_line);
 }
+
+
