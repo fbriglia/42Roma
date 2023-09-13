@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:26:40 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/24 19:57:52 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:09:51 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_UP 65362
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_DOWN 65364
+# define K_LE 65361
+# define K_RI 65363
+# define K_DO 65364
 # define KEY_ESC 65307
 
 typedef struct s_map
@@ -94,5 +94,10 @@ void		destroy_image(t_game *game);
 int			ft_check_map_pop(t_game *game);
 int			close_game(t_game *game);
 char		*ft_strdup(char *src);
+void		create_map(t_game *game, char *file);
+void		find_player_exit(t_game *game);
+int			valid(t_game *game, int col, int line);
+int			ft_m_straight(t_game *game, int col, int line);
+
 
 #endif

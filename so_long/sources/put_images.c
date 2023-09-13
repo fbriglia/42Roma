@@ -55,12 +55,12 @@ void	put_images(t_game *game)
 			&len);
 	game->map.coin = mlx_xpm_file_to_image(game->mlx, "./img/coin.xpm", &len,
 			&len);
-	game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy.xpm",
-			&len, &len);
-	game->map.arbusto = mlx_xpm_file_to_image(game->mlx, "./img/wall.xpm",
-			&len, &len);
-	game->map.ascia = mlx_xpm_file_to_image(game->mlx, "./img/ascia.xpm",
-			&len, &len);
+	game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy.xpm", &len,
+			&len);
+	game->map.arbusto = mlx_xpm_file_to_image(game->mlx, "./img/wall.xpm", &len,
+			&len);
+	game->map.ascia = mlx_xpm_file_to_image(game->mlx, "./img/ascia.xpm", &len,
+			&len);
 }
 
 void	mlx_put_image(int x, int y, t_game *game)

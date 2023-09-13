@@ -96,7 +96,8 @@ char	*ft_strdup(char *src)
 	size = 0;
 	while (src[size])
 		++size;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
+	new = malloc(sizeof(char) * (size + 1));
+	if (!new)
 		return (NULL);
 	i = 0;
 	while (src[i])

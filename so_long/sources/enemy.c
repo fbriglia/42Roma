@@ -3,77 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:42:13 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/24 20:33:31 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:48:01 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-int	valid(t_game *game, int col, int line)
-{
-	if (game->map.map[col][line] == '1')
-		return (-1);
-	else if (game->map.map[col][line] == 'C')
-		return (1);
-	else if (game->map.map[col][line] == 'E')
-		return (-1);
-	else if (game->map.map[col][line] == '0')
-		return (1);
-	else if (game->map.map[col][line] == 'P')
-		return (1);
-	return (-1);
-}
-
-// void	update_image_enemy(t_game *game, char direction)
-// {
-// 	int	len;
-
-// 	len = SPRITE_SIZE;
-// 	if (direction == 'W')
-// 		game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy_sx.xpm",
-// 				&len, &len);
-// 	else if (direction == 'S')
-// 		game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy_up.xpm",
-// 				&len, &len);
-// 	else if (direction == 'E')
-// 		game->map.enemy = mlx_xpm_file_to_image(game->mlx, "./img/enemy_dx.xpm",
-// 				&len, &len);
-// 	else if (direction == 'N')
-// 		game->map.enemy = mlx_xpm_file_to_image(game->mlx,
-// 				"./img/enemy_down.xpm", &len, &len);
-// }
-
-int	ft_m_straight(t_game *game, int col, int line)
-{
-	if (valid(game, --col, line) == 1 && game->prev_move == 'N')
-	{
-		switch_position(game, col, line);
-		return (1);
-	}
-	col++;
-	if (valid(game, col, --line) == 1 && game->prev_move == 'W')
-	{
-		switch_position(game, col, line);
-		return (1);
-	}
-	line++;
-	if (valid(game, ++col, line) == 1 && game->prev_move == 'S')
-	{
-		switch_position(game, col, line);
-		return (1);
-	}
-	col--;
-	if (valid(game, col, ++line) == 1 && game->prev_move == 'E')
-	{
-		switch_position(game, col, line);
-		return (1);
-	}
-	line--;
-	return (0);
-}
 
 int	move_straight(t_game *game)
 {
@@ -95,17 +32,17 @@ int	ft_vertical(t_game *game)
 	line = game->y_enemy;
 	vertical = game->x_enemy - game->x_player;
 	col--;
-	if (vertical >= 0 && valid(game,col,line) == 1 && game->prev_move != 'S')
+	if (vertical >= 0 && valid(game, col, line) == 1 && game->prev_move != 'S')
 	{
-		ft_moven(game,col,line);
-		return(1);
+		ft_moven(game, col, line);
+		return (1);
 	}
 	col++;
 	col++;
-	if (vertical < 0 && valid(game,col,line) == 1 && game->prev_move != 'N')
+	if (vertical < 0 && valid(game, col, line) == 1 && game->prev_move != 'N')
 	{
-		ft_moves(game,col,line);
-		return(1);
+		ft_moves(game, col, line);
+		return (1);
 	}
 	return (0);
 }
@@ -120,29 +57,29 @@ int	ft_horizontal(t_game *game)
 	line = game->y_enemy;
 	horizontal = game->y_enemy - game->y_player;
 	line--;
-	if (horizontal >= 0 && valid(game,col,line) == 1 && game->prev_move != 'E')
+	if (horizontal >= 0 && valid(game, col, line) == 1
+		&& game->prev_move != 'E')
 	{
-		ft_movew(game,col,line);
-		return(1);
+		ft_movew(game, col, line);
+		return (1);
 	}
 	line++;
 	line++;
-	if (horizontal < 0 && valid(game,col,line) == 1 && game->prev_move != 'W')
+	if (horizontal < 0 && valid(game, col, line) == 1 && game->prev_move != 'W')
 	{
-		ft_movee(game,col,line);
-		return(1);
+		ft_movee(game, col, line);
+		return (1);
 	}
 	return (0);
 }
 
-int	ft_chase(t_game	*game)
+int	ft_chase(t_game *game)
 {
 	int	vertical;
 	int	horizontal;
 
 	vertical = game->x_enemy - game->x_player;
 	horizontal = game->y_enemy - game->y_player;
-
 	if (vertical <= 0)
 		vertical *= -1;
 	if (horizontal <= 0)

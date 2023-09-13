@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 19:31:42 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/24 18:20:05 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:32:45 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*clean_end(char *line_sporca)
 {
 	int		i;
 	int		j;
-	char	*statica_pulita;
+	char	*stat_p;
 
 	i = 0;
 	if (!line_sporca)
@@ -35,9 +35,8 @@ char	*clean_end(char *line_sporca)
 	}
 	while (line_sporca[i] != '\n' && line_sporca[i])
 		i++;
-	statica_pulita = (char *)malloc((ft_strlen(line_sporca) - i + 1)
-			* sizeof(char));
-	if (!statica_pulita)
+	stat_p = (char *)malloc((ft_strlen(line_sporca) - i + 1) * sizeof(char));
+	if (!stat_p)
 		return (0);
 	if (!line_sporca[0])
 		i = 0;
@@ -45,10 +44,10 @@ char	*clean_end(char *line_sporca)
 		i++;
 	j = 0;
 	while (ft_strlen(line_sporca) > i)
-		statica_pulita[j++] = line_sporca[i++];
-	statica_pulita[j] = '\0';
+		stat_p[j++] = line_sporca[i++];
+	stat_p[j] = '\0';
 	free(line_sporca);
-	return (statica_pulita);
+	return (stat_p);
 }
 
 char	*clean_start(char *line_sporca)
@@ -117,5 +116,3 @@ char	*get_next_line(int fd)
 	statica = clean_end(statica);
 	return (next_line);
 }
-
-

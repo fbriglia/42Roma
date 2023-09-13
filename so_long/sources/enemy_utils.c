@@ -42,7 +42,6 @@ int	ft_moven(t_game *game, int col, int line)
 {
 	switch_position(game, col, line);
 	game->prev_move = 'N';
-	// update_image_enemy(game, 'N');
 	return (0);
 }
 
@@ -50,7 +49,6 @@ int	ft_movew(t_game *game, int col, int line)
 {
 	switch_position(game, col, line);
 	game->prev_move = 'W';
-	// update_image_enemy(game, 'W');
 	return (0);
 }
 
@@ -58,7 +56,6 @@ int	ft_movee(t_game *game, int col, int line)
 {
 	switch_position(game, col, line);
 	game->prev_move = 'E';
-	// update_image_enemy(game, 'E');
 	return (0);
 }
 
@@ -66,6 +63,5 @@ int	ft_moves(t_game *game, int col, int line)
 {
 	switch_position(game, col, line);
 	game->prev_move = 'S';
-	// update_image_enemy(game, 'S');
 	return (0);
 }

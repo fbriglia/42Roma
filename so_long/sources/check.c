@@ -120,7 +120,6 @@ void	ft_check(t_game *game)
 	if (i == 1)
 	{
 		ft_printf("\n **INVALID MAP POPULATION** \n\n");
-		// free_mtx
 		exit (0);
 	}
 	count_collectibles(game);

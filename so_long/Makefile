@@ -20,9 +20,9 @@ NAME			= so_long
 
 CC				= gcc
 EXTENSION		= c
-CFLAGS			= -Wall -Wextra -Werror -g
-MINILIBX	=	make -C mlx
-MLX			=	mlx/Makefile.gen
+CFLAGS			= -Wall -Wextra -Werror -g -Wno-unused-result
+MINILIBX	=	make -C mlx_linux
+MLX			=	mlx_linux/libmlx.a
 
 EXECUTION		= ./$(NAME) map/classic.ber
 MD				= mkdir -p
@@ -47,9 +47,10 @@ SRC_DIR			= sources
 OBJ_DIR			= objs
 
 SRCS			= $(foreach DIR, $(SRC_SUB_DIRS), $(wildcard $(DIR)/*.$(EXTENSION)))
-OBJS			= ./sources/ft_itoa.o ./printf/ft_putnbr.o ./printf/ft_printfutils.o ./printf/ft_printf.o ./get_next_line/get_next_line.o ./get_next_line/get_next_line_utils.o ./sources/map.o ./sources/put_images.o ./sources/moves.o ./sources/so_long.o ./sources/enemy.o ./sources/enemy_utils.o ./sources/check.o
+OBJS			= ./sources/ft_itoa.o ./printf/ft_putnbr.o ./printf/ft_printfutils.o ./printf/ft_printf.o ./get_next_line/get_next_line.o ./get_next_line/get_next_line_utils.o ./sources/map.o ./sources/put_images.o ./sources/moves.o ./sources/so_long.o ./sources/enemy.o ./sources/enemy_utils.o ./sources/check.o ./sources/utils_varie.o
 
-
+PRINTF_DIR = printf/
+PRINTF_LIB = printf/libftprintf.a
 
 #####   BASE RULES   #####
 
@@ -60,7 +61,10 @@ $(NAME): $(OBJ)
 
 $(NAME): $(OBJS)
 # @ $(MINILIBX)
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@make -C $(PRINTF_DIR)
+	make -C mlx_linux/
+	$(CC) $(OBJS) $(PRINTF_LIB) $(MLX) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	# -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
 #  @ $(CC) $(MLX) $(LINKER) $(CFLAGS) $(OBJS) -o $@
 	@ echo "$(GREEN)[+] $(NAME) compiled$(END)"
 
@@ -81,7 +85,7 @@ clean:
 	@ echo "$(YELLOW)[+] $(OBJ_DIR) cleaned$(END)"
 
 fclean: clean
-	@ $(RM) $(NAME)
+	@ $(RM) $(NAME) $(PRINTF_LIB) $(MLX) mlx_linux/libmlx_Linux.a
 	@ echo "$(YELLOW)[+] $(NAME) fcleaned$(END)"
 
 re: fclean all

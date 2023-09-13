@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ft_printf.c ft_printfutils.c ft_putnbr.c\
+SRCS = ft_printf.c ft_printfutils.c ft_putnbr.c
 
 OBJS = ${SRCS:.c=.o}
 NAME = libftprintf.a

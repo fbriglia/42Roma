@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:20:17 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/24 20:31:58 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:15:11 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	ft_collect_ascia(t_game *game)
 
 int	ft_collect(t_game *game)
 {
-	// char	*collect;
-	// char	*join;
-	int		len;
+	int	len;
 
 	len = SPRITE_SIZE;
 	game->collectibles--;
@@ -32,22 +30,10 @@ int	ft_collect(t_game *game)
 		game->map.exit = mlx_xpm_file_to_image(game->mlx, "./img/exitopen.xpm",
 				&len, &len);
 	}
-	// collect = ft_itoa(game->collectibles);
-	// join = ft_join("To collect : ", collect);
-	// mlx_string_put(game->mlx, game->window, ((game->map.cols) - 4) * 64,
-	// 	(game->map.rows * 2 + 1) * 64, 0x00000000, join);
-	// free(collect);
-	// free(join);
-	// collect = ft_itoa(game->collectibles);
-	// join = ft_join("To collect : ", collect);
-	// mlx_string_put(game->mlx, game->window, ((game->map.cols) - 4) * 32,
-	// 	(game->map.rows * 2 + 1) * 32, 0xCFFF04, join);
-	// free(collect);
-	// free(join);
 	return (1);
 }
 
-int	valid_move(t_game *game, int col, int line, int pressed_key)
+int	valid_move(t_game *game, int col, int line, int key)
 {
 	if (game->map.map[col][line] == 'X')
 	{
@@ -71,65 +57,29 @@ int	valid_move(t_game *game, int col, int line, int pressed_key)
 		ft_printf("\n\nYOU WIN🏆\n\n");
 		ft_exit(game);
 	}
-	else if (pressed_key != KEY_W && pressed_key != KEY_S
-		&& pressed_key != KEY_A && pressed_key != KEY_D
-		&& pressed_key != KEY_UP && pressed_key != KEY_DOWN
-		&& pressed_key != KEY_LEFT && pressed_key != KEY_RIGHT)
+	else if (key != KEY_W && key != KEY_S && key != KEY_A && key != KEY_D
+		&& key != KEY_UP && key != K_DO && key != K_LE && key != K_RI)
 		return (-1);
 	return (1);
 }
 
-// void	update_image(int keycode, t_game *game)
-// {
-// 	int	len;
-
-// 	len = SPRITE_SIZE;
-// 	if (keycode == KEY_A || keycode == KEY_LEFT)
-// 		game->map.player = mlx_xpm_file_to_image(game->mlx,
-// 				"./img/player_sx.xpm", &len, &len);
-// 	else if (keycode == KEY_W || keycode == KEY_UP)
-// 		game->map.player = mlx_xpm_file_to_image(game->mlx,
-// 				"./img/player_up.xpm", &len, &len);
-// 	else if (keycode == KEY_D || keycode == KEY_RIGHT)
-// 		game->map.player = mlx_xpm_file_to_image(game->mlx,
-// 				"./img/player_dx.xpm", &len, &len);
-// 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-// 		game->map.player = mlx_xpm_file_to_image(game->mlx,
-// 				"./img/player_down.xpm", &len, &len);
-// }
-
 int	move_player(t_game *game, int col, int line, int keycode)
 {
-	int		valid;
-	int		tcol;
-	int		tline;
-	// char	*join;
-	// char	*moves;
+	int	valid;
+	int	tcol;
+	int	tline;
 
 	tcol = game->x_player;
 	tline = game->y_player;
 	valid = valid_move(game, col, line, keycode);
 	if (valid != -1)
 	{
-		// moves = ft_itoa(game->move_num);
-		// game->move_counter = ft_join("Move counter : ", moves);
 		game->y_player = line;
 		game->x_player = col;
 		game->map.map[col][line] = 'P';
 		game->map.map[tcol][tline] = '0';
 		game->move_num++;
-		// update_image(keycode, game);
-		// mlx_string_put(game->mlx, game->window, 32, (game->map.rows * 2 + 1) * 32,
-		// 	0x00000000, game->move_counter);
-		// free (moves);
-		// free (join);
 		ft_printf("Moves: %d\n", game->move_num);
-		// moves = ft_itoa(game->move_num);
-		// join = ft_join("Move counter : ", moves);
-		// mlx_string_put(game->mlx, game->window, 32, (game->map.rows * 2 + 1) * 32,
-		// 	0x0000FF00, join);
-		// free (moves);
-		// free(join);
 	}
 	return (0);
 }
@@ -141,15 +91,15 @@ int	key_handler(int keycode, t_game *game)
 
 	col = game->x_player;
 	line = game->y_player;
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	if (keycode == KEY_A || keycode == K_LE)
 		line--;
 	else if (keycode == KEY_ESC)
 		close_game(game);
 	else if (keycode == KEY_W || keycode == KEY_UP)
 		col--;
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_D || keycode == K_RI)
 		line++;
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
+	else if (keycode == KEY_S || keycode == K_DO)
 		col++;
 	else if (keycode == 53)
 	{

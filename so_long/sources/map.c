@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:20:32 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/25 18:01:04 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:00:20 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	check_map_pop(t_game *game, int x, int y)
 		game->y_enemy = x;
 	}
 	if ((game->map.map[y][x] != 'P') && (game->map.map[y][x] != 'E')
-		&& (game->map.map[y][x] != 'C') &&
-		(game->map.map[y][x] != '0') && (game->map.map[y][x] != '1')
-			&& (game->map.map[y][x] != 'X') && (game->map.map[y][x] != 'A') && (game->map.map[y][x] != 'U'))
+		&& (game->map.map[y][x] != 'C') && (game->map.map[y][x] != '0')
+		&& (game->map.map[y][x] != '1') && (game->map.map[y][x] != 'X')
+		&& (game->map.map[y][x] != 'A') && (game->map.map[y][x] != 'U'))
 	{
 		ft_printf(" %s", "\n **INVALID MAP POPULATION** \n\n");
 		ft_exit(game);
@@ -86,11 +86,8 @@ int	ft_count_rows(int fd)
 
 void	ft_parse_map(t_game *game, char *file)
 {
-	int	i;
-	int	fd;
-	char	*line;
+	int		fd;
 
-	line = NULL;
 	fd = open(file, O_RDONLY, 0);
 	if (!fd)
 	{
@@ -99,27 +96,7 @@ void	ft_parse_map(t_game *game, char *file)
 	}
 	game->map.rows = ft_count_rows(fd);
 	close(fd);
-	fd = open(file, O_RDONLY, 0);
-	if (!fd)
-	{
-		close(fd);
-		exit(0);
-	}
-	game->map.map = malloc(game->map.rows * sizeof(char *));
-	if (!game->map.map)
-		exit(0);
-	i = 0;
-	line = get_next_line(fd);
-	while (i <= game->map.rows && line)
-	{
-		game->map.map[i] = ft_strdup(line);
-		free(line);
-		line = get_next_line(fd);
-		i++;
-	}
-	game->map.cols = ft_strlen(game->map.map[0]);
-	ft_check(game);
-	find_player_exit(game);
+	create_map(game, file);
 	game->was_collectible = 0;
 	close(fd);
 }

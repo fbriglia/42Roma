@@ -46,11 +46,6 @@ char	*ft_join(char *s1, char *s2)
 	size_t	j;
 	char	*str;
 
-	// if (!s1)
-	// {
- 	// 	s1 = (char *)malloc(1 * sizeof(char));
-	// 	s1[0] = '\0';
-	// }
 	if (!s1 || !s2)
 		return (NULL);
 	str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
