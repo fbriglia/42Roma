@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:26:05 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/08/24 17:13:44 by fbriglia         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:55:00 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_shape(t_game *game)
 		if (ft_strlen(game->map.map[i]) != game->map.cols)
 		{
 			ft_printf(" %s", "\n **INVALID MAP SHAPE** \n\n");
-			exit(0);
+			ft_exit(game);
 		}
 		i++;
 	}
@@ -31,54 +31,49 @@ void	check_shape(t_game *game)
 void	check_top_border(t_game *game)
 {
 	int	x;
-	int	y;
 
-	y = 0;
-	while (y++ <= game->map.rows)
+	x = -1;
+	while (game->map.map[0][++x])
 	{
-		x = 0;
-		if (y == 0)
+		if (game->map.map[0][x] != '1')
 		{
-			while (game->map.map[y][x++])
-			{
-				if (game->map.map[y][x] != '1')
-					exit(0);
-			}
+			ft_printf(" %s", "\n **INVALID MAP BORDER** \n\n");
+			ft_exit(game);
 		}
-		if (y == game->map.rows - 1)
+	}
+	x = -1;
+	while (++x < game->map.cols - 1)
+	{
+		if (game->map.map[game->map.rows - 1][x] != '1')
 		{
-			while (game->map.map[game->map.rows - 1][x])
-			{
-				if (game->map.map[y][x] != '1')
-					exit(0);
-				x++;
-			}
+			ft_printf(" %s", "\n **INVALID MAP BORDER** \n\n");
+			ft_exit(game);
 		}
 	}
 }
 
 void	check_side_border(t_game *game)
 {
-	int	x;
 	int	y;
 
 	y = 0;
-	while (y < game->map.rows)
+	while (y < game->map.rows - 1)
 	{
-		x = 0;
-		if (game->map.map[y][x] == 1)
+		if (game->map.map[y][0] != '1')
 		{
 			ft_printf(" %s", "\n **INVALID MAP BORDER** \n\n");
-			exit(0);
+			ft_exit(game);
 		}
 		y++;
 	}
 	y = 0;
 	while (y < game->map.rows)
 	{
-		x = game->map.cols - 1;
-		if (game->map.map[y][x] != '1')
-			exit(0);
+		if (game->map.map[y][game->map.cols -1] != '1')
+		{
+			ft_printf(" %s", "\n **INVALID MAP BORDER** \n\n");
+			ft_exit(game);
+		}
 		y++;
 	}
 }
@@ -104,7 +99,7 @@ void	count_collectibles(t_game *game)
 	if (c < 1)
 	{
 		ft_printf(" %s", "\n **INVALID MAP POPULATION** \n\n");
-		exit(0);
+		ft_exit(game);
 	}
 	game->collectibles = c;
 }
@@ -120,7 +115,8 @@ void	ft_check(t_game *game)
 	if (i == 1)
 	{
 		ft_printf("\n **INVALID MAP POPULATION** \n\n");
-		exit (0);
+		ft_exit(game);
 	}
+	check_for_intruder(game);
 	count_collectibles(game);
 }

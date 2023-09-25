@@ -108,7 +108,7 @@ tar: fclean
 	@ echo "$(GREEN)[+] Made tar$(END)"
 
 val: all
-	valgrind --leak-check=full $(EXECUTION)
+	valgrind --leak-check=full --show-leak-kinds=all $(EXECUTION)
 var: val
 
 git:

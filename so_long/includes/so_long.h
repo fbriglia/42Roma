@@ -6,7 +6,7 @@
 /*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:26:40 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/09/12 18:09:51 by federico         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:11:39 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ typedef struct s_map
 typedef struct s_game
 {
 	t_map	map;
+	int		ascia;
+	int		arbusto;
+	int		enemy;
+	int		game_int;
 	int		ascia_collected;
 	int		collectibles;
 	int		x_player;
@@ -98,6 +102,8 @@ void		create_map(t_game *game, char *file);
 void		find_player_exit(t_game *game);
 int			valid(t_game *game, int col, int line);
 int			ft_m_straight(t_game *game, int col, int line);
+void		check_for_intruder(t_game *game);
+
 
 
 #endif

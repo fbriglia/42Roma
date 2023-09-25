@@ -6,7 +6,7 @@
 /*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:20:32 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/09/12 18:00:20 by federico         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:58:29 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,13 @@ int	ft_count_rows(int fd)
 		if (buff == '\n')
 			i++;
 	}
-	return (i);
+	if (i > 2)
+		return (i);
+	else
+	{
+		ft_printf("Too few rows in map");
+		exit(0);
+	}
 }
 
 void	ft_parse_map(t_game *game, char *file)

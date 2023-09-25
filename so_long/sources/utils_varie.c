@@ -6,7 +6,7 @@
 /*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:10:54 by federico          #+#    #+#             */
-/*   Updated: 2023/09/12 18:00:06 by federico         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:42:27 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,35 @@ int	ft_m_straight(t_game *game, int col, int line)
 	}
 	line--;
 	return (0);
+}
+
+void	check_for_intruder(t_game *game)
+{
+	int x;
+	int y;
+	
+	y = -1;
+	while (++y < game->map.rows)
+	{
+		x = -1;
+		while (++x < game->map.cols)
+		{
+			if (game->map.map[y][x] != '1' && game->map.map[y][x] != '0'
+				&& game->map.map[y][x] != 'P' && game->map.map[y][x] != 'E'
+				&& game->map.map[y][x] != 'C' && game->map.map[y][x] != 'U'
+				&& game->map.map[y][x] != 'X' && game->map.map[y][x] != 'A')
+			{
+				ft_printf("invalid map pop");
+				ft_exit(game);		
+			}
+			if (game->map.map[y][x] == 'X')
+				game->enemy = 1;
+			if (game->map.map[y][x] == 'U')
+				game->ascia = 1;
+			if (game->map.map[y][x] == 'A')
+				game->arbusto = 1;
+		}
+	}
 }
 
 void	create_map(t_game *game, char *file)
