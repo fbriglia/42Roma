@@ -6,7 +6,7 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:00:57 by fbriglia          #+#    #+#             */
-/*   Updated: 2024/03/11 16:42:02 by fbriglia         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:22:47 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ pthread_t	*start(t_data *data, t_philo *philos)
 
 	i = 0;
 	data->start_time = now_ts() + (data->num_philo * 2 * 10);
-	printf("num_philo = %d\n",data->num_philo);
-	threads = (pthread_t*)malloc(data->num_philo * sizeof(pthread_t));
-	while (i++ < data->num_philo)
+	threads = (pthread_t *)malloc (data->num_philo * sizeof(pthread_t));
+	while (i < data->num_philo)
 	{
 		philos[i].last_meal = data->start_time;
 		pthread_create(&threads[i], NULL, &routine, &philos[i]);
+		i++;
 	}
 	return (threads);
 }
@@ -84,19 +84,19 @@ int	main(int argc, char *argv[])
 
 	if (argc <= 4 || argc >= 7)
 		return (_close(NULL, NULL, NULL, "not enough args\n"));
-	data = (t_data *)malloc(sizeof(t_data));
+	data = (t_data *)malloc (sizeof(t_data));
 	if (!data)
 		return (_close(NULL, NULL, NULL, "data error\n"));
 	if (parse_args(data, argc, argv))
 		return (_close(data, NULL, NULL, "args error\n"));
-	philos = (t_philo *)malloc(data->num_philo * sizeof(t_philo));
+	philos = (t_philo *)malloc (data->num_philo * sizeof(t_philo));
 	if (!philos)
 		return (_close(data, NULL, NULL, "philo error\n"));
-	forks = (pthread_mutex_t *)malloc(data->num_philo * sizeof(pthread_mutex_t));
+	forks = (pthread_mutex_t *)malloc (data->num_philo
+			* sizeof(pthread_mutex_t));
 	if (!forks)
 		return (_close(data, NULL, NULL, "forks error\n"));
 	init_philosophers(data, philos, forks);
-
 	threads = start(data, philos);
 	start_t_checker(data, philos, threads);
 	return (_close(data, philos, threads, NULL));

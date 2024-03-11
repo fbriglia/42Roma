@@ -6,7 +6,7 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:09:35 by fbriglia          #+#    #+#             */
-/*   Updated: 2024/03/11 16:24:50 by fbriglia         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:58:06 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	parse_args(t_data *data, int argc, char *argv[])
 	data->time_must_eat = -1;
 	if (argc == 6)
 		data->time_must_eat = ft_atoi(argv[5]);
-	pthread_mutex_init(&data->print_lock, NULL);
+	pthread_mutex_init(&(data->print_lock), NULL);
 	return (0);
 }
 

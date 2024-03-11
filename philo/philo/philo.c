@@ -6,7 +6,7 @@
 /*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:57:20 by fbriglia          #+#    #+#             */
-/*   Updated: 2024/03/11 16:09:20 by fbriglia         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:17:17 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,12 @@ void	init_philosophers(t_data *data, t_philo *philos, pthread_mutex_t *forks)
 {
 	int	i;
 
-	i = 0;
-	while (i++ < data->num_philo)
+	i = -1;
+	while (++i < data->num_philo)
 	{
-		pthread_mutex_init(&forks[i], NULL);
-		pthread_mutex_init(&philos[i].rw_mutex, NULL);
+		pthread_mutex_init(&(forks[i]), NULL);
+		pthread_mutex_init(&(philos[i].rw_mutex), NULL);
+		printf("%d\n", i);
 		philos[i].forks = forks;
 		philos[i].id = i + 1;
 		philos[i].meals_counter = 0;

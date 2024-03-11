@@ -9,7 +9,7 @@ PHILO_OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(PHILO_OBJS)
-	$(CC) $(FLAGS) $(PHILO_OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(PHILO_OBJS) -o $(NAME) -pthread
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
