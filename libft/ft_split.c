@@ -11,12 +11,69 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdint.h>
+#include <stdio.h>
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*s2;
+
+	if (!s)
+		return (0);
+	if ((len == 0 && start == 0) || (size_t)start >= ft_strlen(s))
+	{
+		s2 = (char *) malloc(sizeof(char) * 1);
+		s2[0] = 0;
+		return (s2);
+	}
+	if (ft_strlen(s) + start < len)
+		len = ft_strlen(s + start);
+	i = 0;
+	s2 = malloc((len + 1) * sizeof(char));
+	if (!s2)
+		return (0);
+	while (i < len && s[start + i] != '\0' && start <= ft_strlen((char *)s))
+	{
+		s2[i] = s[start + i];
+		i++;
+	}
+	s2[i] = 0;
+	return (s2);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return(i);
+	
+}
 int	num_word(char const *s, char c)
 {
 	int	p;
 	int	i;
 
+	i = 0;
+	while(s[i])
+	{
+		if (s[i] == c)
+		{
+			p = i;
+			p++;
+			while (s[p] == ' ')
+				p++;
+			if (s[p] == c)
+				return(-1);
+		}
+		i++;
+	}
 	i = 0;
 	p = 0;
 	while (s[i])
@@ -31,7 +88,7 @@ int	num_word(char const *s, char c)
 		}
 		if (s[i] && s[i] != c)
 		{
-			p += 1;
+			p++;
 		}
 		while (s[i] && s[i] != c)
 			i++;
@@ -91,3 +148,21 @@ char	**ft_split(char const *s, char c)
 	return (matrix = ft_writing(matrix, s, c));
 	return (matrix);
 }
+
+int	main(void)
+{
+	char *str = "dsjfhjka |       hageF";
+	char **matrix;
+	// int		i;
+
+	// i = 0;
+	if(num_word(str, '|') == -1)
+	{
+		printf("zsh: parse error near `|'");
+		return(1);
+	}
+	matrix = ft_split(str, '|');
+	// while(++i < num_word(str , '|'));
+	printf("%s\n", matrix[0]);
+	printf("%s\n", matrix[1]);
+\}
