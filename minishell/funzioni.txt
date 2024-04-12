@@ -1,0 +1,72 @@
+Input e Output (I/O) di Base
+
+    read: Legge dati da un file descriptor.
+    write: Scrive dati su un file descriptor.
+    close: Chiude un file descriptor.
+    open: Apre un file descriptor.
+
+Gestione della Memoria
+
+    malloc: Alloca memoria dinamicamente.
+    free: Libera memoria allocata.
+
+Gestione e Controllo dei Processi
+
+    fork: Crea un nuovo processo (processo figlio).
+    exit: Termina il processo corrente.
+    execve: Esegue un nuovo programma, sostituendo il processo corrente.
+    wait, waitpid, wait3, wait4: Sospendono l'esecuzione del processo genitore fino a quando un processo figlio termina.
+    kill: Invia un segnale a un processo specifico.
+
+Gestione dei Segnali
+
+    signal: Associa un gestore a un segnale specifico.
+    sigaction: Configura azioni per i segnali.
+    sigemptyset, sigaddset: Inizializzano e aggiungono segnali a un insieme di segnali.
+
+Gestione File e Directory
+
+    getcwd: Ottiene il percorso della directory di lavoro corrente.
+    chdir: Cambia la directory di lavoro corrente.
+    stat, lstat, fstat: Forniscono informazioni dettagliate sui file.
+    unlink: Elimina un nome di file dal filesystem.
+
+Operazioni su File Descriptor
+
+    dup, dup2: Creano copie di file descriptor.
+    pipe: Crea una coppia di file descriptor connessi per la comunicazione inter-processo.
+
+Interfaccia Utente e Readline
+
+    readline: Legge una linea di input.
+    printf: Stampa output formattato.
+    rl_clear_history: Pulisce la storia di comandi di readline.
+    rl_on_new_line, rl_replace_line, rl_redisplay: Gestiscono e modificano l'output di readline.
+    add_history: Aggiunge comandi alla storia di readline.
+
+Gestione dei File e delle Directory (Alto Livello)
+
+    opendir, readdir, closedir: Apre, legge e chiude directory.
+    access: Controlla i permessi di accesso ai file.
+
+Gestione degli Errori
+
+    strerror, perror: Forniscono informazioni sugli errori.
+
+Gestione del Terminale
+
+    isatty, ttyname, ttyslot: Verificano e forniscono informazioni sul terminale.
+    ioctl: Esegue operazioni di controllo del dispositivo.
+    tcsetattr, tcgetattr: Impostano e ottengono attributi del terminale.
+    tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs: Funzioni per la gestione avanzata del terminale.
+
+Variabili di Ambiente
+
+    getenv: Recupera il valore di una variabile di ambiente.
+
+Questa suddivisione offre un quadro più chiaro delle funzionalità specifiche di ciascuna funzione e del loro utilizzo nel contesto della programmazione di sistema in C.
+int	check_double_pipe(char const *s, char c)
+{
+	int	i;
+}
+check cazzi

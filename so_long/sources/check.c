@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbriglia <fbriglia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:26:05 by fbriglia          #+#    #+#             */
-/*   Updated: 2023/09/14 16:55:00 by federico         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:57:20 by fbriglia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 void	check_shape(t_game *game)
 {

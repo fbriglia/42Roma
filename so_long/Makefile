@@ -1,128 +1,105 @@
-#####   COLORS   #####
+#  |  |  ___ \    \  |         |
+#  |  |     ) |  |\/ |   _  |  |  /   _ 
+# ___ __|  __/   |   |  (   |    <    __/ 
+#    _|  _____| _|  _| \__,_| _|\_\ \___|
+#                              by jcluzet
+################################################################################
+#                                     CONFIG                                   #
+################################################################################
 
-END				= \033[0m
+NAME        := cub3d
+CC        := gcc
+FLAGS    := -Wall -Wextra -Werror 
+################################################################################
+#                                 PROGRAM'S SRCS                               #
+################################################################################
 
-GREY			= \033[30m
-RED				= \033[31m
-GREEN			= \033[32m
-YELLOW			= \033[33m
-BLUE			= \033[34m
-PURPLE			= \033[35m
-CYAN			= \033[36m
+SRCS        :=      printf/ft_printf.c \
+                          printf/ft_printfutils.c \
+                          printf/ft_putnbr.c \
+                          sources/ft_itoa.c \
+                          sources/enemy_utils.c \
+                          sources/check.c \
+                          sources/map.c \
+                          sources/enemy.c \
+                          sources/utils_varie.c \
+                          sources/so_long.c \
+                          sources/put_images.c \
+                          sources/moves.c \
+                          get_next_line/get_next_line_utils.c \
+                          get_next_line/get_next_line.c \
+                          
+OBJS        := $(SRCS:.c=.o)
 
-HIGH_RED		= \033[91m
+.c.o:
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
-#####   INFO   #####
-
-NAME			= so_long
-
-#####   COMMANDS   #####
-
-CC				= gcc
-EXTENSION		= c
-CFLAGS			= -Wall -Wextra -Werror -g -Wno-unused-result
-MINILIBX	=	make -C mlx_linux
-MLX			=	mlx_linux/libmlx.a
-
-EXECUTION		= ./$(NAME) map/classic.ber
-MD				= mkdir -p
-RM				= rm -rf
-TAR_EXCLUSIONS	= --exclude=".git" \
-				  --exclude=".vscode" \
-				  --exclude="objs" \
-				  --exclude="._" \
-				  --exclude="*.DS_Store"
-TAR				= tar $(TAR_EXCLUSIONS) -cf
-
-#####   GIT   #####
-
-ADD = git add .
-COMMIT = git commit -m
-PUSH = git push
-
-#####   RESOURCES   #####
-
-INCLUDE			= includes
-SRC_DIR			= sources
-OBJ_DIR			= objs
-
-SRCS			= $(foreach DIR, $(SRC_SUB_DIRS), $(wildcard $(DIR)/*.$(EXTENSION)))
-OBJS			= ./sources/ft_itoa.o ./printf/ft_putnbr.o ./printf/ft_printfutils.o ./printf/ft_printf.o ./get_next_line/get_next_line.o ./get_next_line/get_next_line_utils.o ./sources/map.o ./sources/put_images.o ./sources/moves.o ./sources/so_long.o ./sources/enemy.o ./sources/enemy_utils.o ./sources/check.o ./sources/utils_varie.o
-
-PRINTF_DIR = printf/
-PRINTF_LIB = printf/libftprintf.a
-
-#####   BASE RULES   #####
-
-all: $(NAME) 
+################################################################################
+#                                  Makefile  objs                              #
+################################################################################
 
 
-$(NAME): $(OBJ)
+CLR_RMV		:= \033[0m
+RED		    := \033[1;31m
+GREEN		:= \033[1;32m
+YELLOW		:= \033[1;33m
+BLUE		:= \033[1;34m
+CYAN 		:= \033[1;36m
+RM		    := rm -f
 
-$(NAME): $(OBJS)
-# @ $(MINILIBX)
-	@make -C $(PRINTF_DIR)
-	make -C mlx_linux/
-	$(CC) $(OBJS) $(PRINTF_LIB) $(MLX) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-	# -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
-#  @ $(CC) $(MLX) $(LINKER) $(CFLAGS) $(OBJS) -o $@
-	@ echo "$(GREEN)[+] $(NAME) compiled$(END)"
+UNAME		:=	$(shell uname)
 
-%.o: %.c
-	# $(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
-	$(CC) $(CFLAGS) -I $(INCLUDE) -Imlx_linux -O3 -c $< -o $@
+ifeq ($(UNAME), Darwin)
+$(NAME): ${OBJS}
+			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+			@ $(MAKE) -C mlx all >/dev/null 2>&1
+			@ cp ./mlx/libmlx.a .
+			$(CC) $(CFLAGS) -g3 -Ofast -o $(NAME) -Imlx $(OBJS) -Lmlx -lmlx -lm -framework OpenGL -framework AppKit
+			@echo "$(GREEN)$(NAME) created[0m ✔️"
+endif
 
-# %.o: %.c
-# 	@ echo "$(BLUE)[+] $@ compiled$(END)"
+ifeq ($(UNAME), Linux)
+$(NAME): ${OBJS}
+			@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+			@chmod 777 mlx_linux/configure
+			@ $(MAKE) -C mlx_linux all
+			$(CC) $(CFLAGS) -g3 -o $(NAME) $(OBJS) -Imlx_linux -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
+			@echo "$(GREEN)$(NAME) created[0m ✔️"
+endif
 
-$(OBJ_SUB_DIRS):
-	@ $(MD) $(OBJ_SUB_DIRS)
-	@ echo "$(PURPLE)[+] $(SRC_DIR) remapped into $(OBJ_DIR) $(END)"
+all:		${NAME}
 
-
+ifeq ($(UNAME), Darwin)
 clean:
-	@ $(RM) $(OBJS)
-	@ echo "$(YELLOW)[+] $(OBJ_DIR) cleaned$(END)"
+			@ ${RM} *.o */*.o */*/*.o
+			@ rm -rf $(NAME).dSYM >/dev/null 2>&1
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+endif
 
-fclean: clean
-	@ $(RM) $(NAME) $(PRINTF_LIB) $(MLX) mlx_linux/libmlx_Linux.a
-	@ echo "$(YELLOW)[+] $(NAME) fcleaned$(END)"
-
-re: fclean all
-
-bonus: all
-
-
-
-#####   EXTRA RULES   #####
-
-test: all
-	clear
-	@ $(EXECUTION)
-
-run: test
-rrun: fclean test
-
-tar: fclean
-	@ $(TAR) ../$(NAME).tar .
-	@ echo "$(GREEN)[+] Made tar$(END)"
-
-val: all
-	valgrind --leak-check=full --show-leak-kinds=all $(EXECUTION)
-var: val
-
-git:
-	@ $(eval MESSAGE := $(or $(m), $(error Usage: make commit m="<commit message>")))
-	@ $(ADD)
-	@ $(COMMIT) $(MESSAGE)
-	@ $(PUSH)clear
-
-setup:
-	@ echo "# dirs\n.vscode\n$(OBJ_DIR)\n\n# files\n$(NAME)\n._*\n.DS_Store" > .gitignore
-	@ $(MD) $(SRC_DIR) $(INCLUDE)
-	@ echo "$(GREEN)[+] Setup completed$(END)"
+ifeq ($(UNAME), Linux)
+clean:
+			@ ${RM} *.o */*.o */*/*.o
+			@ rm -rf $(NAME).dSYM >/dev/null 2>&1
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+endif
 
 
-#####   PHONY   #####
+ifeq ($(UNAME), Linux)
+fclean:		clean
+			@ ${RM} ${NAME}
+			@ $(MAKE) -C mlx_linux clean 
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+endif
 
-.PHONY: all clean fclean re
+ifeq ($(UNAME), Darwin)
+fclean:		clean
+			@ ${RM} ${NAME}
+			@ rm libmlx.a
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+endif
+
+re:			fclean all
+
+.PHONY:		all clean fclean re
+
+
