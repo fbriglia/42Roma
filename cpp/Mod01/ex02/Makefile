@@ -1,7 +1,6 @@
-NAME     := PhoneBook
+NAME     := Brain
 
-SRCS     := PhoneBook.cpp \
-			Print.cpp \
+SRCS     := main.cpp \
 			
 OBJS     := $(SRCS:.cpp=.o)
 

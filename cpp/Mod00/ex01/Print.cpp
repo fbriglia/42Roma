@@ -7,11 +7,11 @@ void PhoneBook::print_contact(int x)
         std::cout << "Invalid index" << std::endl;
         return;
     }
-    std::cout << "First Name: " << Contacts[x].first_name << std::endl;
-    std::cout << "Last Name: " << Contacts[x].last_name << std::endl;
-    std::cout << "Nickname: " << Contacts[x].nickname << std::endl;
-    std::cout << "Phone Number: " << Contacts[x].phone_number << std::endl;
-    std::cout << "Darkest Secret: " << Contacts[x].darkest_secret << std::endl;
+    std::cout << "First Name: " << Contacts[x].getfirst_name() << std::endl;
+    std::cout << "Last Name: " << Contacts[x].getlast_name() << std::endl;
+    std::cout << "Nickname: " << Contacts[x].getnickname() << std::endl;
+    std::cout << "Phone Number: " << Contacts[x].getphone_number() << std::endl;
+    std::cout << "Darkest Secret: " << Contacts[x].getdarkest_secret() << std::endl;
 
 }
 
