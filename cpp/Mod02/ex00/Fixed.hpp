@@ -14,4 +14,7 @@ private:
     static const int fractional_bits = 8;
 
 };
+
+ 
+
 #endif

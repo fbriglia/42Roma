@@ -4,8 +4,10 @@
 Fixed::Fixed():RawValue(0) {
     std::cout << "Default constructor called" << std::endl;
 }
-Fixed::Fixed(Fixed const&){
+Fixed::Fixed(Fixed const& f){
+    *this = f;
     std::cout << "Copy constructor called" << std::endl;
+    delete &f;
 }
 Fixed::~Fixed(){
     std::cout << "Destructor called" << std::endl;
