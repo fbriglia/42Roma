@@ -1,25 +1,36 @@
 #include "Fixed.hpp"
 #include <iostream>
 
-Fixed::Fixed(): RawValue(0){
+Fixed::Fixed(): RawValue(0)
+{
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const int val){
+std::ostream &operator<<(std::ostream &stream, Fixed const &F)
+{
+    stream << F.toFloat();
+    return(stream);
+}
+
+Fixed::Fixed(const int val)
+{
     RawValue = val * pow(2,fractional_bits);
     std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float val){
+Fixed::Fixed(const float val)
+{
     RawValue = val * pow(2,fractional_bits);
     std::cout << "Float constructor called" << std::endl;
 }
 
-Fixed::Fixed(Fixed const& f){
+Fixed::Fixed(Fixed const& f)
+{
     std::cout << "Copy constructor called" << std::endl;
     *this = f;
 }
-Fixed::~Fixed(){
+Fixed::~Fixed()
+{
     std::cout << "Destructor called" << std::endl;
 }
 
@@ -40,8 +51,13 @@ int Fixed::toInt() const
     return(RawValue/pow(2,fractional_bits));
 }
 
-int Fixed::getRawBits()
+int Fixed::getRawBits() const
 {
     std::cout << "getRawBits member function called" << std::endl;
     return RawValue;
+}
+
+void Fixed::setRawBits(int const raw)
+{
+    RawValue = raw;
 }

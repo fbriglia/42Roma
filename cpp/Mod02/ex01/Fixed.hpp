@@ -15,12 +15,12 @@ public:
     Fixed&   operator=(const Fixed& F);
     float   toFloat() const;
     int     toInt() const;
-    int     getRawBits();
+    int     getRawBits() const;
+    void    setRawBits(const int raw);
     ~Fixed();
 private:
     int RawValue;
     static const int fractional_bits = 8;
-
 };
 
 std::ostream &operator<<(std::ostream&, Fixed const&);

@@ -3,25 +3,28 @@
 
 // CONSTRUCTORS
 Fixed::Fixed(): RawValue(0){
-    // std::cout << "Default constructor called" << std::endl;
+    std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int val){
     RawValue = val * pow(2,fractional_bits);
-    // std::cout << "Int constructor called" << std::endl;
+    std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float val){
+Fixed::Fixed(const float val)
+{
     RawValue = val * pow(2,fractional_bits);
 }
 
-Fixed::Fixed(Fixed const& f){
+Fixed::Fixed(Fixed const& f)
+{
     *this = f;
 }
 
 // DECONSTRUCTOR
-Fixed::~Fixed(){
-    // std::cout << "Destructor called" << std::endl;
+Fixed::~Fixed()
+{
+    std::cout << "Destructor called" << std::endl;
 }
 
 // OPERATORS
@@ -31,7 +34,8 @@ Fixed& Fixed::operator=(const Fixed& F)
     return(*this);
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& obj) {
+std::ostream& operator<<(std::ostream& os, const Fixed& obj)
+{
     os << obj.toFloat();
     return os;
 }
@@ -144,6 +148,6 @@ int Fixed::toInt() const
 
 int Fixed::getRawBits()
 {
-    // std::cout << "getRawBits member function called" << std::endl;
+    std::cout << "getRawBits member function called" << std::endl;
     return (RawValue);
 }
