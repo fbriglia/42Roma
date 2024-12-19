@@ -14,7 +14,10 @@ template <typename T> class Array {
         Array(unsigned int i): Data(new T[i]), _size(i) {}
         Array(const Array& A)
         {
-            *this = A;
+            _size = A._size;
+            Data = new T[_size];
+            for (int i =0; i < A._size; i++)
+                Data[i] = A.Data[i];
         }
         Array& operator=(const Array& A)
         {
@@ -43,7 +46,6 @@ template <typename T> class Array {
                 delete[] Data;
             }
         }
-
 };
 
 #endif
