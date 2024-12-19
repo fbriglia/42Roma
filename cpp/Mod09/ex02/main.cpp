@@ -1,21 +1,51 @@
-1 2 * 2 / 2 + 5 * 6 - 1 3 * - 4 5 * * 8 /
+#include "PmergeMe.hpp"
+#include <algorithm>
+#include <cctype>
+#include <deque>
+#include <list>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
 
-2 2 / 2 + 5 * 6 - 1 3 * - 4 5 * * 8 /
+bool is_number(const std::string &s) {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it))
+        ++it;
+    return !s.empty() && it == s.end();
+}
 
-1 2 + 5 * 6 - 1 3 * - 4 5 * * 8 /
+int main(int argc, const char *argv[]) {
+    if (argc <= 2) {
+        std::cout << "PmergeMe: not enought args" << std::endl;
+        return 1;
+    }
 
-3 5 * 6 - 1 3 * - 4 5 * * 8 /
+    PmergeMe<std::deque<int>, std::deque<std::pair<int, int> > > deq("std::deque");
+    PmergeMe<std::vector<int>, std::vector<std::pair<int, int> > > vec("std::vector");
 
-15 6 - 1 3 * - 4 5 * * 8 /
+    std::cout << "Before: ";
+    for (int i = 1, nbr; i < argc; i++) {
+        if (!is_number(argv[i])) {
+            return 1;
+        }
+        nbr = std::atof(argv[i]);
+        deq.push_back(nbr);
+        vec.push_back(nbr);
+        if (i < 8)
+            std::cout << argv[i] << " ";
+    }
+    if (argc > 8)
+        std::cout << "...";
+    std::cout << std::endl;
 
-9 1 3 * - 4 5 * * 8 /
+    deq.sort();
+    vec.sort();
 
-9 3 - 4 5 * * 8 /
+    std::cout << "After: ";
+    deq.printSorted();
 
-6 4 5 * * 8 /
-
-6 20 * 8 /
-
-120 8 /
-
-42
+    deq.printProcessTime();
+    vec.printProcessTime();
+    return 0;
+}

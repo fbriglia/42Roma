@@ -1,16 +1,23 @@
-Name = PmergeMe
-SRC = main.cpp BitcoinExchange.cpp
+CC = c++
+NAME = pmergeme
+FLAGS = -Wall -Wextra -Werror -std=c++98
+SRC = main.cpp
+OBJS = $(SRC:.cpp=.o)
 
-all: $(Name)
+all: $(NAME)
 
-$(Name):
-	c++ -Wall -Werror -Wextra -std=c++98 $(SRC) -o $(Name)
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
-clean: 
-	rm -f $(Name)
+clean:
+	rm -rf $(OBJS)
 
 fclean: clean
+	rm -rf $(NAME)
 
-re: clean all
+re:	fclean all
 
-.PHONY: all clean re
+.cpp.o:
+	${CC} ${FLAGS} -c $< -o ${<:.cpp=.o}
+
+.PHONY: all clean fclean re

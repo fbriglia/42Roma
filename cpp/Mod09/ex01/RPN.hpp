@@ -2,7 +2,7 @@
 #define RPN_HPP
 
 #include "iostream"
-#include <deque>
+#include <stack>
 #include <vector>
 #include <list>
 
@@ -20,9 +20,10 @@ class Rpn {
     private:
 
     public:
-        std::deque<node> dec;
+        std::stack<node> dec;
         Rpn();
         ~Rpn();
+        int three_num(int, int);
         void parseInput(std::string);
         void algo();
 };

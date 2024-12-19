@@ -1,40 +1,81 @@
 #include "RPN.hpp"
 #include <cctype>
-#include <deque>
+#include <stack>
 #include <vector>
 
 Rpn::Rpn() {}
 
 Rpn::~Rpn(){
-    if (!dec.empty())
-        dec.clear();
+
 }
 
+int Rpn::three_num(int num_1, int num_2)
+{
+    int num_3 = dec.top().value;
+    dec.pop();
+    switch (dec.top().value) {
+    case '+' : 
+        num_2 = num_2 + num_3;
+        break;
+    case '-' : 
+        num_2 = num_2 - num_3;
+        break;
+    case '/' : 
+        num_2 = num_2 / num_3;
+        break;
+    case '*' : 
+        num_2 = num_2 * num_3;
+        break;
+    }
+    dec.pop();
+    switch (dec.top().value) {
+    case '+' : 
+        num_2 = num_1 + num_2;
+        break;
+    case '-' : 
+        num_2 = num_1 - num_2;
+        break;
+    case '/' : 
+        num_2 = num_1 / num_2;
+        break;
+    case '*' : 
+        num_2 = num_1 * num_2;
+        break;
+    }
+    return num_2;
+
+}
 
 void    Rpn::algo()
 {
+    int num_1;
+    int num_2;
     int result;
-    std::deque<node>::iterator it = dec.begin();
-    for (; it != dec.end() && it->type != OPERATOR; it++)
-        continue;
-    switch (it->value) {
+    num_1 = dec.top().value;
+    dec.pop();
+    num_2 = dec.top().value;
+    dec.pop();
+    switch (dec.top().value) {
         case '+' : 
-            result = (it-2)->value + (it-1)->value;
+            result = num_1 + num_2;
             break;
         case '-' : 
-            result = (it-2)->value - (it-1)->value;
+            result = num_1 - num_2;
             break;
         case '/' : 
-            result = (it-2)->value / (it-1)->value;
+            result = num_1 / num_2;
             break;
         case '*' : 
-            result = (it-2)->value * (it-1)->value;
+            result = num_1 * num_2;
+            break;
+        default:
+            result = three_num(num_1, num_2);
             break;
     }
-    (it-2)->value = result;
-    dec.erase(it-1);
-    dec.erase(it);
-    if ((it-1) == dec.end())
+    dec.pop();
+    node n_result = {INT, result};
+    dec.push(n_result);
+    if (dec.size() == 1)
         return ;
     algo();
 }
@@ -42,16 +83,16 @@ void    Rpn::algo()
 void	Rpn::parseInput(std::string input)
 {
     node node;
-    if (int y = input.find(" ") != std::string::npos || input.length() == 1)
+    if (input.length() > 0)
     {
-        if (std::isdigit(input[0])) 
+        if (std::isdigit(input[input.length() - 1])) 
             node.type = INT;
         else
             node.type = OPERATOR;
-        node.value = node.type ? input[0] : input[0] - 48;
-        dec.push_back(node);
+        node.value = node.type ? input[input.length()-1] : input[input.length()-1] - 48;
+        dec.push(node);
         if (input.length() == 1)
             return;
-        parseInput(input.substr(y+1));
+        parseInput(input.substr(0, input.length()-2));
     }
 }

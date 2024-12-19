@@ -34,5 +34,5 @@ int main(int argc, char **argv)
     }
     R.parseInput(argv[1]);
     R.algo();
-    std::cout << R.dec[0].value << std::endl;
+    std::cout << R.dec.top().value << std::endl;
 }
